@@ -1,0 +1,120 @@
+roup(head,[.25,-.035,0]);
+mesh(loftGeo([[0,-.13,.13,.175],[.23,-.23,.24,.22],[.57,-.255,.237,.192],[1.03,-.20,.137,.119],[1.39,-.13,.033,.032],[1.48,-.134,.007,.005]]),M.pouch,bill);
+mesh(loftGeo([[0,.012,.09,.183],[.18,.007,.091,.219],[.57,-.015,.070,.177],[1.02,-.055,.045,.115],[1.39,-.105,.03,.034],[1.51,-.145,.012,.002]]),M.bill,bill);
+tube(bill,M.billTop,[[0,.087,0],[.35,.083,0],[.9,.008,0],[1.41,-.083,0]],.019,32);
+for(const side of [-1,1]){
+ tube(bill,M.billLine,[[.035,-.046,side*.177],[.36,-.070,side*.205],[.90,-.094,side*.142],[1.38,-.12,side*.035]],.008,32);
+ for(let i=0;i<4;i++)tube(bill,M.billLine,[[.05+i*.045,-.115,side*(.181-i*.008)],[.30+i*.1,-.36,side*(.194-i*.012)],[.93+i*.065,-.29+i*.03,side*(.12-i*.007)]],.0028,20);
+ ell(bill,M.billLine,[.15,.03,side*.207],[.036,.012,.006],true);
+}
+ell(bill,M.billTop,[1.475,-.153,0],[.035,.033,.019],true);
+const eyes=[];
+for(const side of [-1,1]){
+ const eye=group(head,[.067,.105,side*.273]);eyes.push(eye);
+ ell(eye,M.iris,[0,0,0],[.105,.115,.025]);ell(eye,M.ivory,[.008,.002,side*.018],[.082,.091,.029]);
+ ell(eye,M.eye,[.029,.006,side*.042],[.044,.055,.019]);ell(eye,M.white,[.039,.027,side*.059],[.014,.015,.007],true);
+ tube(head,M.warmFeather,[[-.053,.229,side*.218],[.054,.245,side*.263],[.14,.218,side*.248]],.028,18);
+}
+// Crown feathers and a small mint cycling helmet, with vents and straps.
+for(let i=0;i<3;i++)feather(head,M.ivory,[-.16,.18,(i-1)*.07],[-.40-i*.055,.33-i*.035,(i-1)*.074],.05,.035);
+const helmet=ell(head,M.frameLight,[-.075,.260,0],[.333,.162,.276]);
+const helmetRim=ring(head,M.frame,[-.063,.217,0],.271,.017);helmetRim.r[0]=PI/2;helmetRim.s=[1.2,1,1];
+for(const z of [-.135,0,.135]){const vent=ell(head,M.frame,[-.08,.386-Math.abs(z)*.20,z],[.18,.018,.022],true);vent.r[2]=-.07;}
+ell(head,M.frame,[-.008,.215,0],[.375,.024,.286]);
+for(const s of [-1,1])tube(head,M.leather,[[-.22,.22,s*.235],[-.25,-.11,s*.245],[-.06,-.27,s*.195],[.0,-.235,s*.145]],.011,22);
+// Wind-tossed terracotta scarf. Its free end deforms, rather than rotating rigidly.
+const scarfKnot=ell(body,M.scarf,[.46,.69,0],[.234,.099,.234]);scarfKnot.r[2]=-.13;
+ell(body,M.scarf,[.28,.72,.06],[.12,.13,.17]);
+const scarfPositions=[],scarfIndices=[];
+const scarfSteps=28;
+for(let i=0;i<=scarfSteps;i++){scarfPositions.push(0,0,0,0,0,0);if(i<scarfSteps){let a=i*2;scarfIndices.push(a,a+1,a+2,a+1,a+3,a+2);}}
+const scarfGeo=geometry(scarfPositions,new Float32Array(scarfPositions.length),scarfIndices,'cloth');const scarfMesh=mesh(scarfGeo,M.scarf,body);scarfMesh.cast=true;
+// Both wings end on the actual grips; feathered hands do not float over them.
+const wings=[];
+for(const side of [-1,1]){
+ const upper=mesh(G.sphere,M.ivory,rig),fore=mesh(G.sphere,M.feather,rig),cover=mesh(G.sphere,M.white,rig);
+ const feathers=[];for(let i=0;i<5;i++)feathers.push({base:mesh(G.sphere,i%2?M.ivory:M.feather,rig),tip:mesh(G.sphere,M.black,rig),i});
+ const elbowJoint=ell(rig,M.ivory,[0,0,0],[.133,.128,.111]);
+ const hand=ell(rig,M.ivory,[1.01,2.17,side*.50],[.123,.092,.095]);
+ for(let i=0;i<3;i++)tube(rig,i===0?M.feather:M.ivory,[[.975+i*.035,2.208,side*(.54+i*.003)],[1.06+i*.027,2.167,side*.55],[1.046+i*.027,2.095,side*.50]],.022,14);
+ wings.push({side,upper,fore,cover,feathers,hand,elbowJoint});
+}
+// Delicate drifting flecks, behind the rider only.
+const flecks=[];
+for(let i=0;i<12;i++){const n=ell(root,i%3?M.flowerWhite:M.grassLight,[rand()*24-12,1.2+rand()*2.7,-2.4-rand()*4],[.024,.011,.045],true);n.cast=false;flecks.push({n,x:n.p[0],y:n.p[1],phase:rand()*TAU});}
+// --------------------- Animation and input / no dependencies --------------
+let paused=false,speed=1,phase=0,time=0,totalDistance=0,bellTime=-10;
+let frameId=0,previousTime=0,frameCount=0,smoothedDelta=1/60,uiTimer=0;
+let width=innerWidth,height=innerHeight,ratioPixels=Math.min(devicePixelRatio||1,innerWidth<700?1.5:1.8);
+const camera={az:.40,el:.17,radius:10.7,target:[.15,2.05,0],azTarget:.40,elTarget:.17,radiusTarget:10.7};
+let viewIndex=0;
+function setHome(){
+ const mobile=width<600;
+ camera.azTarget=.38;camera.elTarget=mobile?.13:.17;
+ camera.radiusTarget=mobile?11.8:10.7;
+ viewIndex=0;
+}
+function resize(){
+ width=innerWidth;height=innerHeight;canvas.width=Math.round(width*ratioPixels);canvas.height=Math.round(height*ratioPixels);
+ if(width<600&&camera.radiusTarget<10)camera.radiusTarget=11.8;
+}
+resize();setHome();camera.az=camera.azTarget;camera.el=camera.elTarget;camera.radius=camera.radiusTarget;
+addEventListener('resize',resize);
+function animateScene(dt){
+ if(!paused){time+=dt;phase-=dt*3*speed;totalDistance+=dt*3*speed*ratio*R;}
+ const bob=Math.sin(phase*2)*.021;
+ rig.r[0]=Math.sin(phase)*.009;rig.r[1]=Math.sin(time*.66)*.006;
+ body.p[1]=2.61+bob;body.r[0]=Math.sin(phase)*.015;body.r[2]=Math.sin(phase*2)*.008;
+ const ringing=Math.max(0,1-(time-bellTime)/1.25);
+ head.r[2]=Math.sin(phase*.5)*.017+Math.sin(time*15)*ringing*.035;
+ head.r[1]=Math.sin(time*.9)*.025+ringing*.095;
+ const blinkCycle=time%5.8,blink=blinkCycle>5.56?Math.max(.09,Math.abs((blinkCycle-5.68)/.12)):1;
+ eyes.forEach(e=>e.s[1]=Math.min(1,blink));
+ wheels.forEach(w=>w.r[2]=phase*ratio);chainRing.r[2]=phase;
+ for(const leg of legs){
+  const a=phase+(leg.side<0?PI:0),px=C[0]+Math.cos(a)*crankRadius,py=C[1]+Math.sin(a)*crankRadius,z=leg.side*.43;
+  leg.pedal.p=[px,py,z];leg.pedal.r[2]=Math.sin(a+.6)*.075;
+  link(leg.crank,[C[0],C[1],leg.side*.235],[px,py,leg.side*.235],.026);
+  link(leg.spindle,[px,py,leg.side*.21],[px,py,leg.side*.53],.018);
+  // An ankle anchored to the transformed foot, then a two-bone analytical IK.
+  const tilt=leg.pedal.r[2],fx=-.13,fy=.133;
+  const ankle=[px+fx*Math.cos(tilt)-fy*Math.sin(tilt),py+fx*Math.sin(tilt)+fy*Math.cos(tilt),z];
+  const hip=[-.43,2.135+bob,leg.side*.30];
+  const delta=sub(ankle,hip),d=clamp(len(delta),.01,1.619),u=norm(delta),L1=.81,L2=.81;
+  const a1=(L1*L1-L2*L2+d*d)/(2*d),h=Math.sqrt(Math.max(.0001,L1*L1-a1*a1));
+  // Bend knees forward (+X), while keeping the foot exactly on the pedal.
+  const bend=norm(sub([1,0,0],mul(u,u[0]))),knee=add(add(hip,mul(u,a1)),mul(bend,h));
+  link(leg.upper,hip,knee,.046);link(leg.lower,knee,ankle,.037);
+  leg.knee.p=knee;leg.ankle.p=ankle;
+  link(leg.thigh,lerp3(hip,knee,-.04),lerp3(hip,knee,.58),.121,.106);
+ }
+ for(const wing of wings){
+  const s=wing.side,shoulder=[-.15,2.94+bob,s*.383],elbow=[.245,2.625+bob*.45,s*(.535+.012*Math.sin(phase))],wrist=[1.007,2.175,s*.50];
+  wing.elbowJoint.p=elbow;link(wing.upper,shoulder,elbow,.215,.135);link(wing.fore,elbow,wrist,.157,.111);
+  link(wing.cover,add(shoulder,[-.015,.04,s*.045]),add(elbow,[-.04,.025,s*.065]),.17,.085);
+  for(const f of wing.feathers){
+   const i=f.i,offset=(i-2)*.048;
+   const start=add(elbow,[-.09+i*.025,.105,s*(.07+offset)]);
+   const end=add(wrist,[-.16+Math.abs(i-2)*.035,.065-i*.017,s*offset*.6]);
+   const mid=lerp3(start,end,.77);
+   link(f.base,start,lerp3(start,end,.86),.068,.030);
+   link(f.tip,mid,end,.057,.027);
+  }
+ }
+ for(let i=0;i<chainLinks.length;i++){
+  const d=i/chainLinks.length*chainTotal+phase*.255;
+  link(chainLinks[i],chainAt(d),chainAt(d+.026),.013);
+ }
+ for(let i=0;i<=scarfSteps;i++){
+  const u=i/scarfSteps,x=.28-u*1.43,y=.73+u*.16+Math.sin(u*9-time*7)*.085*u,z=.015+Math.sin(u*7-time*5)*.11*u;
+  const w=.17*(1-.35*u)*(i===scarfSteps?.80:1);
+  const a=i*6;scarfGeo.pos[a]=x;scarfGeo.pos[a+1]=y+w/2;scarfGeo.pos[a+2]=z;
+  scarfGeo.pos[a+3]=x+.02;scarfGeo.pos[a+4]=y-w/2;scarfGeo.pos[a+5]=z+.015;
+ }
+ scarfGeo.nor=normaliseGeometry(scarfGeo.pos,scarfGeo.indices);
+ for(let i=0;i<scarfGeo.nor.length;i++)scarfGeo.nor[i]*=-1;
+ gl.bindBuffer(gl.ARRAY_BUFFER,scarfGeo.posBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,scarfGeo.pos);
+ gl.bindBuffer(gl.ARRAY_BUFFER,scarfGeo.normalBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,scarfGeo.nor);
+ for(const m of moving){m.node.p[0]=((m.start-totalDistance*m.factor+m.length*1e4)%m.length+m.length)%m.length-m.length*.5;}
+ for(let i=0;i<grassTufts.length;i++)grassTufts[i].r[0]=Math.sin(time*2.3+i)*.055;
+ for(let i=0;i<clouds.l
