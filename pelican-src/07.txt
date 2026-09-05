@@ -1,0 +1,38 @@
+nvas.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{
+ if(e.target instanceof HTMLInputElement||e.target instanceof HTMLTextAreaElement)return;
+ if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();togglePause();}
+ if(e.code==='KeyR')setHome();if(e.code==='KeyB')bell();
+ if(e.code==='ArrowLeft'){camera.azTarget+=.10;e.preventDefault();}if(e.code==='ArrowRight'){camera.azTarget-=.10;e.preventDefault();}
+ if(e.code==='ArrowUp'){camera.elTarget=clamp(camera.elTarget-.08,-.025,1.30);e.preventDefault();}if(e.code==='ArrowDown'){camera.elTarget=clamp(camera.elTarget+.08,-.025,1.30);e.preventDefault();}
+ if(e.key==='+'||e.key==='=')camera.radiusTarget=clamp(camera.radiusTarget*.9,5.6,22);if(e.key==='-')camera.radiusTarget=clamp(camera.radiusTarget*1.1,5.6,22);
+});
+// Stop spending GPU time in background tabs, and never integrate a giant dt.
+function frame(ms){
+ const dt=previousTime?clamp((ms-previousTime)/1000,.001,.05):1/60;previousTime=ms;
+ animateScene(dt);render(dt);frameCount++;uiTimer+=dt;
+ if(uiTimer>.16){updateStats();uiTimer=0;}
+ if(frameCount===2){document.getElementById('loading').classList.add('done');document.documentElement.dataset.ready='true';}
+ smoothedDelta=mix(smoothedDelta,dt,.015);
+ // Bound fill rate on high-resolution/low-power devices, without changing motion.
+ if(frameCount===240&&smoothedDelta>.028&&ratioPixels>1.15){ratioPixels=1.15;resize();}
+ frameId=requestAnimationFrame(frame);
+}
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden){cancelAnimationFrame(frameId);previousTime=0;}else{previousTime=0;frameId=requestAnimationFrame(frame);}
+});
+// Deterministic diagnostics for local testing; not required for normal use.
+window.__pelican={
+ get state(){return {paused,speed,time,phase,distance:totalDistance,camera:{...camera},stats:renderStats};},
+ setTime(t){time=t;phase=-t*3*speed;totalDistance=-phase*ratio*R;animateScene(0);render(1/60);},
+ setPaused(p){if(paused!==p)togglePause();},
+ render:()=>{animateScene(0);render(1/60);},
+ get contacts(){return legs.map(l=>({foot:l.ankle.p.slice(),pedal:l.pedal.p.slice(),knee:l.knee.p.slice()}));}
+};
+updateStats();frameId=requestAnimationFrame(frame);
+} catch(error) {fail(error);}
+})();
+
+</script>
+</body>
+</html>
