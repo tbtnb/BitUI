@@ -1,0 +1,94 @@
+ength;i++){const c=clouds[i];c.p[0]+=(paused?0:dt)*.09;if(c.p[0]>55)c.p[0]=-55;}
+ for(let i=0;i<boats.length;i++){const b=boats[i];b.g.p[0]=b.x-Math.sin(time*.025)*2;b.g.p[1]=.10+Math.sin(time*1.1+i)*.035;b.g.r[0]=Math.sin(time*1.1+i)*.022;}
+ for(const f of flecks){f.n.p[0]=((f.x-totalDistance*.25+100)%24+24)%24-12;f.n.p[1]=f.y+Math.sin(time+f.phase)*.14;f.n.r[1]=time*.3+f.phase;}
+}
+function gather(){
+ root.update(null);
+ for(const batch of batches.values()){
+  const needed=batch.nodes.length*24;
+  if(!batch.data||batch.data.length<needed)batch.data=new Float32Array(needed);
+  let count=0;
+  for(const n of batch.nodes){if(!n.renderable)continue;const m=n.world,o=count*24;batch.data.set(m,o);
+   batch.data[o+16]=n.mat.c[0];batch.data[o+17]=n.mat.c[1];batch.data[o+18]=n.mat.c[2];batch.data[o+19]=n.mat.spec;
+   batch.data[o+20]=n.mat.emission;batch.data[o+21]=n.mat.receive;
+   batch.data[o+22]=n.cast&&Math.abs(m[12])<12&&Math.abs(m[14])<12?1:0;batch.data[o+23]=0;count++;
+  }
+  batch.count=count;gl.bindBuffer(gl.ARRAY_BUFFER,batch.g.instanceBuffer);gl.bufferData(gl.ARRAY_BUFFER,batch.data,gl.DYNAMIC_DRAW);
+ }
+}
+function drawBatches(){for(const batch of batches.values()){if(!batch.count)continue;gl.bindVertexArray(batch.g.vao);gl.drawElementsInstanced(gl.TRIANGLES,batch.g.indices.length,gl.UNSIGNED_INT,0,batch.count);}gl.bindVertexArray(null);}
+let renderStats={};
+function render(dt){
+ const smooth=1-Math.exp(-dt*12);
+ camera.az=mix(camera.az,camera.azTarget,smooth);camera.el=mix(camera.el,camera.elTarget,smooth);camera.radius=mix(camera.radius,camera.radiusTarget,smooth);
+ const mobile=width<600,aspect=width/height;
+ const target=mobile?[.17,2.06,0]:[.18,2.05,0];
+ const eye=add(target,[camera.radius*Math.cos(camera.el)*Math.sin(camera.az),camera.radius*Math.sin(camera.el),camera.radius*Math.cos(camera.el)*Math.cos(camera.az)]);
+ // Off-axis projection keeps the sculpture away from the editorial title.
+ const fov=mobile?48*PI/180:42*PI/180;
+ const projection=perspective(fov,aspect,.08,220,mobile?-.015:-.17,mobile?.08:.075);
+ const viewProjection=mm(projection,lookAt(eye,target));
+ gather();
+ gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.depthMask(true);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);
+ gl.bindFramebuffer(gl.FRAMEBUFFER,shadowFbo);gl.viewport(0,0,shadowSize,shadowSize);gl.clear(gl.DEPTH_BUFFER_BIT);gl.useProgram(shadowProg);gl.uniformMatrix4fv(shadowLight,false,lightMatrix);drawBatches();
+ gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.78,.86,.80,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ gl.disable(gl.DEPTH_TEST);gl.depthMask(false);gl.useProgram(skyProg);gl.drawArrays(gl.TRIANGLES,0,3);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);
+ gl.useProgram(prog);gl.uniformMatrix4fv(U.uViewProjection,false,viewProjection);gl.uniformMatrix4fv(U.uLight,false,lightMatrix);gl.uniform3fv(U.uEye,eye);gl.uniform3fv(U.uSun,sunDirection);gl.uniform2f(U.uShadowTexel,1/shadowSize,1/shadowSize);
+ gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,depthTexture);gl.uniform1i(U.uShadowMap,0);drawBatches();
+ renderStats={meshes:[...batches.values()].reduce((n,b)=>n+b.count,0),drawCalls:batches.size*2+1,triangles:[...batches.values()].reduce((n,b)=>n+b.g.indices.length/3*b.count,0),pixelRatio:ratioPixels};
+}
+let toastTimeout;
+function toast(text){const el=document.getElementById('toast');el.textContent=text;el.classList.add('visible');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('visible'),1700);}
+function togglePause(){
+ paused=!paused;const btn=document.getElementById('pause');btn.setAttribute('aria-pressed',String(paused));btn.setAttribute('aria-label',paused?'继续动画':'暂停动画');
+ btn.innerHTML=paused?'<svg class="icon" viewBox="0 0 24 24"><path d="m9 5 10 7-10 7Z" fill="currentColor" stroke="none"/></svg>':'<svg class="icon" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12" stroke-width="2.5"/></svg>';
+ updateStats();toast(paused?'歇一会儿，看看风景。':'继续出发，海风在前面。');
+}
+function updateStats(){document.getElementById('velocity').textContent=(paused?0:3*speed*ratio*R*3.6).toFixed(1);document.getElementById('distance').textContent=(totalDistance/1000).toFixed(2);}
+document.getElementById('pause').addEventListener('click',togglePause);
+document.getElementById('speed').addEventListener('click',()=>{
+ const options=[.5,1,1.5,2];speed=options[(options.indexOf(speed)+1)%options.length];
+ document.querySelector('.speed-number').textContent=speed.toFixed(1)+'×';document.getElementById('speed').setAttribute('aria-label',`骑行速度，当前 ${speed} 倍`);updateStats();toast(speed===.5?'慢悠悠，也很好。':speed===2?'让海风再快一点。':`${speed.toFixed(1)} 倍速骑行`);
+});
+document.getElementById('reset').addEventListener('click',()=>{setHome();toast('回到最初的好风景。');});
+document.getElementById('view').addEventListener('click',()=>{
+ viewIndex=(viewIndex+1)%3;
+ const views=[{az:.38,el:.17,label:'海岸视角'},{az:0,el:.10,label:'侧面 · 看看完整的踩踏动作'},{az:1.43,el:.17,label:'迎面 · 和鹈鹕打个招呼'}];
+ const v=views[viewIndex];camera.azTarget=v.az;camera.elTarget=v.el;camera.radiusTarget=width<600?11.8:10.7;toast(v.label);
+});
+// A generated two-tone bicycle bell, triggered only after an explicit gesture.
+let audioContext;
+async function bell(){
+ bellTime=time;toast('叮铃！借过一阵海风。');
+ try{
+  const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
+  audioContext=audioContext||new Audio();if(audioContext.state==='suspended')await audioContext.resume();
+  const t=audioContext.currentTime;
+  for(const [delay,freq,volume] of [[0,1680,.105],[.11,2240,.075]]){
+   for(const [harmonic,amp] of [[1,1],[2.76,.23]]){
+    const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type='sine';oscillator.frequency.value=freq*harmonic;
+    gain.gain.setValueAtTime(0,t+delay);gain.gain.linearRampToValueAtTime(volume*amp,t+delay+.004);gain.gain.exponentialRampToValueAtTime(.0001,t+delay+1.25);
+    oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start(t+delay);oscillator.stop(t+delay+1.35);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();};
+   }
+  }
+ }catch(e){console.warn('车铃音效不可用：',e.message);}
+}
+document.getElementById('bell').addEventListener('click',bell);
+const fullBtn=document.getElementById('fullscreen');
+if(!document.documentElement.requestFullscreen)fullBtn.style.display='none';
+fullBtn.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{toast('当前浏览器不支持全屏切换。');}});
+const pointers=new Map();let pinchDistance=0;
+canvas.addEventListener('pointerdown',e=>{
+ canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});canvas.classList.add('dragging');
+ if(pointers.size===2){const p=[...pointers.values()];pinchDistance=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);}
+});
+canvas.addEventListener('pointermove',e=>{
+ if(!pointers.has(e.pointerId))return;const prev=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(pointers.size===1){camera.azTarget-=(e.clientX-prev.x)*.006;camera.elTarget=clamp(camera.elTarget+(e.clientY-prev.y)*.004,-.025,1.30);}
+ else if(pointers.size===2){const p=[...pointers.values()],d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);if(pinchDistance>0)camera.radiusTarget=clamp(camera.radiusTarget*pinchDistance/Math.max(d,1),5.6,22);pinchDistance=d;}
+});
+function pointerUp(e){pointers.delete(e.pointerId);if(pointers.size<2)pinchDistance=0;if(!pointers.size)canvas.classList.remove('dragging');}
+canvas.addEventListener('pointerup',pointerUp);canvas.addEventListener('pointercancel',pointerUp);canvas.addEventListener('lostpointercapture',pointerUp);
+canvas.addEventListener('wheel',e=>{e.preventDefault();const d=e.deltaMode===1?e.deltaY*16:e.deltaY;camera.radiusTarget=clamp(camera.radiusTarget*Math.exp(d*.001),5.6,22);},{passive:false});
+canvas.addEventListener('dblclick',()=>{setHome();toast('视角已复位');});
+ca
