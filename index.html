@@ -1,1 +1,41 @@
-test
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Pelican Cycling 3D</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(#bfe2ff,#eff7dd);font-family:system-ui,-apple-system,"Segoe UI","PingFang SC",sans-serif}#app{position:fixed;inset:0}canvas{display:block;width:100%;height:100%;touch-action:none}.hud{position:fixed;left:24px;top:24px;z-index:3;color:#173b3a;background:#fff9;border:1px solid #fff;border-radius:18px;padding:14px 16px;backdrop-filter:blur(10px);box-shadow:0 8px 30px #0001}.hud h1{font-size:18px;margin:0 0 6px}.hud p{font-size:12px;margin:0;opacity:.72}.ctrl{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;display:flex;gap:8px;background:#fff9;padding:8px;border-radius:999px;backdrop-filter:blur(10px)}button{border:0;border-radius:999px;padding:10px 14px;background:#244f4a;color:white;font-weight:700;cursor:pointer}.tip{position:fixed;right:22px;bottom:24px;font-size:11px;color:#173b3a;background:#fff8;padding:10px 12px;border-radius:12px}@media(max-width:600px){.hud{left:14px;top:14px}.tip{display:none}.ctrl{bottom:18px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="hud"><h1>鹈鹕骑行俱乐部</h1><p>拖拽旋转 · 滚轮缩放 · 海岸兜风</p></div>
+<div class="ctrl"><button id="pause">暂停</button><button id="reset">复位视角</button><button id="speed">速度 1×</button></div>
+<div class="tip">Pelican Cycling 3D · GitHub Pages</div>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js';
+const app=document.getElementById('app');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xbfe2ff);scene.fog=new THREE.Fog(0xbfe2ff,18,58);
+const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(8,4.6,10);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;app.appendChild(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);controls.target.set(0,2.2,0);controls.enableDamping=true;controls.minDistance=5;controls.maxDistance=20;controls.maxPolarAngle=Math.PI*.49;
+scene.add(new THREE.HemisphereLight(0xffffff,0x78916d,2.0));const sun=new THREE.DirectionalLight(0xfff2d0,3.2);sun.position.set(-8,12,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;scene.add(sun);
+const mat=(c,rough=.65,metal=.03)=>new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:metal});const white=mat(0xf5f1df,.85),cream=mat(0xfff7dc,.8),orange=mat(0xe68436,.75),dark=mat(0x183b38,.52,.2),green=mat(0x2f6c61,.52,.2),black=mat(0x191d1c,.55,.35),silver=mat(0xc3d0cf,.32,.75),red=mat(0xb64031,.65);
+function mesh(g,m,p=[0,0,0],r=[0,0,0],s=[1,1,1],parent=scene){const o=new THREE.Mesh(g,m);o.position.set(...p);o.rotation.set(...r);o.scale.set(...s);o.castShadow=o.receiveShadow=true;parent.add(o);return o}
+function cyl(a,b,rad,material,parent=scene){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),v=B.clone().sub(A),len=v.length(),mid=A.clone().add(B).multiplyScalar(.5);const o=mesh(new THREE.CylinderGeometry(rad,rad,len,14),material,[mid.x,mid.y,mid.z],[0,0,0],[1,1,1],parent);o.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),v.normalize());return o}
+mesh(new THREE.PlaneGeometry(120,120),mat(0xb9cf93,.98),[0,-.03,0],[-Math.PI/2,0,0]);mesh(new THREE.PlaneGeometry(80,7),mat(0xd9c9a5,.95),[0,.01,0],[-Math.PI/2,0,0]);mesh(new THREE.PlaneGeometry(120,38),mat(0x77bfd0,.32,.1),[0,-.08,-25],[-Math.PI/2,0,0]);
+for(let i=-30;i<30;i+=5)mesh(new THREE.BoxGeometry(2.1,.025,.08),cream,[i,.035,0]);
+const bike=new THREE.Group();bike.position.y=.05;scene.add(bike);const wheelR=1.35, rearX=-1.85, frontX=1.85;
+function wheel(x){const g=new THREE.Group();g.position.set(x,wheelR,0);bike.add(g);mesh(new THREE.TorusGeometry(wheelR,.075,12,52),black,[0,0,0],[0,Math.PI/2,0],[1,1,1],g);mesh(new THREE.TorusGeometry(wheelR-.13,.025,8,48),silver,[0,0,0],[0,Math.PI/2,0],[1,1,1],g);for(let i=0;i<16;i++){const a=i*Math.PI/8;cyl([0,0,0],[0,Math.cos(a)*(wheelR-.13),Math.sin(a)*(wheelR-.13)],.012,silver,g)}return g}const rearWheel=wheel(rearX),frontWheel=wheel(frontX);
+const crank=new THREE.Vector3(-.1,1.4,0),seat=new THREE.Vector3(-.65,2.65,0),head=new THREE.Vector3(1.15,2.55,0);cyl([rearX,wheelR,0],[crank.x,crank.y,0],.07,green,bike);cyl([crank.x,crank.y,0],[seat.x,seat.y,0],.08,green,bike);cyl([seat.x,seat.y,0],[rearX,wheelR,0],.07,green,bike);cyl([crank.x,crank.y,0],[head.x,head.y,0],.08,green,bike);cyl([seat.x,seat.y,0],[head.x,head.y,0],.075,green,bike);cyl([head.x,head.y,0],[frontX,wheelR,0],.06,green,bike);cyl([seat.x,seat.y,0],[seat.x,3.02,0],.045,silver,bike);mesh(new THREE.BoxGeometry(.75,.14,.33),dark,[seat.x,3.08,0],[0,0,-.08],[1,1,1],bike);cyl([1.12,2.55,0],[1.05,3.18,0],.045,silver,bike);cyl([.66,3.22,0],[1.42,3.22,0],.045,silver,bike);
+const crankG=new THREE.Group();crankG.position.copy(crank);bike.add(crankG);mesh(new THREE.TorusGeometry(.22,.035,8,28),silver,[0,0,0],[Math.PI/2,0,0],[1,1,1],crankG);const pedalL=new THREE.Group(),pedalR=new THREE.Group();crankG.add(pedalL,pedalR);for(const [p,sgn] of [[pedalL,1],[pedalR,-1]]){cyl([0,0,0],[.52,0,0],.025,dark,p);mesh(new THREE.BoxGeometry(.3,.06,.13),black,[.55,0,0],[0,0,0],[1,1,1],p);p.position.z=.18*sgn}
+const bird=new THREE.Group();bird.position.set(-.48,3.02,0);bird.rotation.z=-.06;bike.add(bird);mesh(new THREE.SphereGeometry(1,36,24),white,[0,.95,0],[0,0,.12],[.85,1.15,.72],bird);mesh(new THREE.SphereGeometry(.62,32,22),white,[.2,2.0,0],[0,0,0],[.9,1.05,.85],bird);mesh(new THREE.SphereGeometry(.42,28,18),white,[.25,2.8,0],[0,0,0],[1,1.05,.9],bird);const beak=new THREE.Group();beak.position.set(.46,2.83,0);beak.rotation.z=-Math.PI/2+.03;bird.add(beak);mesh(new THREE.ConeGeometry(.20,1.85,22),orange,[0,.82,0],[0,0,0],[1.18,1,1],beak);mesh(new THREE.SphereGeometry(.055,14,10),black,[.18,2.92,.31],[0,0,0],[1,1,1],bird);mesh(new THREE.SphereGeometry(.055,14,10),black,[.18,2.92,-.31],[0,0,0],[1,1,1],bird);
+for(const [z,sgn] of [[.45,1],[-.45,-1]]){const w=new THREE.Group();w.position.set(.45,1.9,z);bird.add(w);mesh(new THREE.SphereGeometry(.5,22,16),white,[0,0,0],[0,0,-.5],[1.5,.48,.42],w);cyl([.35,-.08,0],[1.05,-.65,-.15*sgn],.13,white,w);cyl([1.05,-.65,-.15*sgn],[1.46,-1.0,-.25*sgn],.09,cream,w)}
+function leg(z){const hip=new THREE.Group();hip.position.set(-.15,.5,z);bird.add(hip);cyl([0,0,0],[.08,-.8,0],.12,cream,hip);const shin=cyl([.08,-.8,0],[.45,-1.45,0],.09,cream,hip);const foot=mesh(new THREE.SphereGeometry(.18,18,12),orange,[.5,-1.5,0],[0,0,0],[1.7,.5,1.05],hip);return {hip,shin,foot}}const legL=leg(.26),legR=leg(-.26);mesh(new THREE.SphereGeometry(.48,24,16),red,[.2,3.08,0],[0,0,0],[1.05,.52,1.05],bird);
+let paused=false,speed=1,t=0;const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04);if(!paused){t+=dt*speed;const spin=t*3.4;rearWheel.rotation.z=-spin;frontWheel.rotation.z=-spin;crankG.rotation.z=-spin;pedalL.rotation.z=spin;pedalR.rotation.z=spin+Math.PI;for(const [leg,off] of [[legL,0],[legR,Math.PI]]){const q=spin+off;leg.hip.rotation.z=.18+Math.sin(q)*.45;leg.shin.rotation.z=.35+Math.cos(q)*.5;leg.foot.rotation.z=-.2+Math.sin(q+.7)*.25}bird.position.y=3.02+Math.sin(spin*2)*.025}controls.update();renderer.render(scene,camera)}animate();
+document.getElementById('pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'继续':'暂停'};document.getElementById('reset').onclick=()=>{camera.position.set(8,4.6,10);controls.target.set(0,2.2,0)};const speeds=[.5,1,1.5,2];let si=1;document.getElementById('speed').onclick=e=>{si=(si+1)%speeds.length;speed=speeds[si];e.target.textContent='速度 '+speed+'×'};addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script>
+</body>
+</html>
