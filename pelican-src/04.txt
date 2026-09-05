@@ -1,0 +1,118 @@
+];
+const sun=ell(root,M.sun,[-26,22,-65],[3.3,3.3,3.3]);sun.cast=false;
+// Distant little sailing boats, entirely geometry rather than image sprites.
+const boats=[];
+function boat(x,z,s){
+ const g=group(root,[x,.07,z]);g.s=[s,s,s];ell(g,M.wood,[0,.07,0],[.65,.14,.22]);rod(g,M.wood,[0,.12,0],[0,1.65,0],.019);
+ const sailGeo=polygonGeo([[0,0],[.73,0],[.02,1.30]],.008),sail=mesh(sailGeo,M.ivory,g,[.03,.35,0]);sail.r[0]=-PI/2;
+ const small=mesh(polygonGeo([[0,0],[-.40,0],[0,1.04]],.008),M.scarfLight,g,[-.04,.38,0]);small.r[0]=-PI/2;
+ g.children.forEach(n=>n.cast=false);boats.push({g,x,z});return g;
+}
+boat(-9,-21,1.1);boat(15,-32,.90);
+// ------------------------------- Bicycle ---------------------------------
+const rig=group(root),bike=group(rig);
+const R=.695,ratio=2.4,crankCenter=[-.12,.70,0],crankRadius=.25;
+const wheels=[];
+for(const x of [-1.15,1.17]){
+ const wheel=group(bike,[x,.702,0]);wheels.push(wheel);
+ ring(wheel,M.tire,[0,0,0],.619,.076);
+ for(const z of [-.052,.052]){ring(wheel,M.sidewall,[0,0,z],.616,.040);ring(wheel,M.metal,[0,0,z*1.03],.568,.023);}
+ rod(wheel,M.metal,[0,0,-.14],[0,0,.14],.075);
+ for(let i=0;i<28;i++){const a=i/28*TAU,z=(i%2?1:-1)*.067;rod(wheel,M.chrome,[.055*Math.cos(a+.25),.055*Math.sin(a+.25),z],[.566*Math.cos(a),.566*Math.sin(a),0],.008);}
+ for(const a of [PI*.15,PI*1.15]){const refl=box(wheel,M.billTop,[.40*Math.cos(a),.40*Math.sin(a),.015],[.13,.045,.035]);refl.r[2]=a;}
+ rod(wheel,M.ink,[-.558,0,0],[-.510,0,0],.013);
+ for(const s of [-1,1])ell(wheel,M.brass,[0,0,s*.152],[.045,.045,.022],true);
+ const guard=ring(bike,M.frameLight,[x,.702,0],.756,.033,PI*.94);guard.r[2]=PI*.03;
+ for(const s of [-1,1])rod(bike,M.metal,[x,.702,s*.11],[x-.51,1.25,s*.11],.012);
+}
+const C=crankCenter,S=[-.60,1.66,0],RU=[-1.15,.702,0],HU=[.69,1.76,0],HL=[.87,1.26,0],FU=[1.17,.702,0];
+for(const [a,b] of [[S,HU],[S,C],[C,HL],[HU,HL]])rod(bike,M.frame,a,b,.056);
+for(const sign of [-1,1]){
+ const rr=[RU[0],RU[1],sign*.105];rod(bike,M.frame,rr,[S[0],S[1],sign*.045],.035);rod(bike,M.frame,rr,[C[0],C[1],sign*.06],.036);
+ tube(bike,M.frame,[[.79,1.50,sign*.095],[.91,1.21,sign*.095],[1.05,.90,sign*.095],[1.17,.702,sign*.095]],.044,22);
+ rod(bike,M.chrome,[1.17,.702,sign*.16],[1.17,.702,sign*.09],.045);
+}
+for(const a of [S,C,HL,HU])ell(bike,M.frame,a,[.069,.07,.068],true);
+// Lugs, decals and a cream top-tube highlight.
+rod(bike,M.lug,lerp3(S,HU,.08),lerp3(S,HU,.17),.059);
+rod(bike,M.lug,lerp3(S,HU,.80),lerp3(S,HU,.91),.059);
+rod(bike,M.lug,lerp3(C,HL,.33),lerp3(C,HL,.49),.058);
+rod(bike,M.chrome,[-.60,1.65,0],[-.65,1.87,0],.032);
+const saddle=ell(bike,M.saddle,[-.64,1.889,0],[.31,.082,.18]);saddle.r[2]=-.04;
+ell(bike,M.leather,[-.47,1.90,0],[.20,.048,.10]);
+for(const s of [-1,1])for(let i=0;i<3;i++)ell(bike,M.brass,[-.80+i*.075,1.927,s*.126],[.012,.007,.009],true);
+// Rear luggage rack, canvas roll and its leather straps.
+for(const z of [-.21,.21]){rod(bike,M.chrome,[-1.52,1.51,z],[-.95,1.51,z],.021);rod(bike,M.chrome,[-1.43,1.50,z],[-1.15,.75,z],.014);}
+for(let i=0;i<4;i++)rod(bike,M.chrome,[-1.48+i*.15,1.51,-.21],[-1.48+i*.15,1.51,.21],.015);
+const roll=rod(bike,M.scarfLight,[-1.30,1.65,-.27],[-1.30,1.65,.27],.137);
+for(const z of [-.16,.16])ring(bike,M.leather,[-1.30,1.65,z],.141,.014);
+for(const z of [-.279,.279]){ring(bike,M.billLine,[-1.30,1.65,z],.091,.008);ring(bike,M.billLine,[-1.30,1.65,z],.046,.006);}
+// Handlebars, wrapped grips and working, reachable contact points.
+rod(bike,M.chrome,[.69,1.76,0],[.63,2.13,0],.034);
+rod(bike,M.chrome,[.63,2.13,0],[.81,2.17,0],.032);
+tube(bike,M.chrome,[[.98,2.135,-.5],[.80,2.17,-.50],[.73,2.20,-.27],[.73,2.20,.27],[.80,2.17,.5],[.98,2.135,.5]],.026,40);
+for(const s of [-1,1]){
+ rod(bike,M.leather,[.85,2.16,s*.5],[1.06,2.123,s*.5],.041);
+ for(let i=0;i<6;i++)rod(bike,M.saddle,[.87+i*.03,2.172,s*.53],[.87+i*.03,2.14,s*.47],.005);
+ rod(bike,M.chrome,[.86,2.10,s*.40],[1.04,2.08,s*.44],.012);
+ tube(bike,M.ink,[[.83,2.11,s*.43],[.68,1.94,s*.27],[.89,1.50,s*.16],[1.08,1.22,s*.10]],.009,25);
+}
+// Lamp faces forward, bell sits on the bar, and the rear has a small reflector.
+rod(bike,M.chrome,[.96,1.29,0],[1.14,1.43,0],.022);
+ell(bike,M.chrome,[1.16,1.44,0],[.13,.11,.11]);ell(bike,M.lens,[1.265,1.445,0],[.024,.089,.089]);
+ell(bike,M.brass,[.76,2.266,.24],[.085,.043,.085]);rod(bike,M.ink,[.74,2.25,.32],[.69,2.26,.36],.012);
+ell(bike,M.red,[-1.82,.98,0],[.03,.06,.085]);
+// Crank and chainring. Gear ratio drives the wheels and the road, without slip.
+const chainRing=group(bike,[C[0],C[1],.16]);
+ring(chainRing,M.chrome,[0,0,0],.224,.022);ring(chainRing,M.chain,[0,0,0],.25,.013);
+for(let i=0;i<5;i++){const a=i/5*TAU;rod(chainRing,M.metal,[0,0,0],[.217*Math.cos(a),.217*Math.sin(a),0],.019);}
+for(let i=0;i<28;i++){const a=i/28*TAU,n=box(chainRing,M.chain,[.25*Math.cos(a),.25*Math.sin(a),0],[.024,.026,.045]);n.r[2]=a;}
+rod(bike,M.chrome,[C[0],C[1],-.25],[C[0],C[1],.25],.053);
+ring(bike,M.chain,[-1.15,.702,.15],.104,.020);
+const legs=[];
+const webFootGeo=polygonGeo([[-.09,-.072],[.11,-.145],[.29,-.16],[.26,-.073],[.36,-.038],[.29,.025],[.34,.123],[.21,.102],[.12,.155],[-.055,.080]],.047);
+for(const side of [-1,1]){
+ const crank=mesh(G.cylinder,M.chrome,bike);
+ const pedal=group(bike);box(pedal,M.ink,[0,0,0],[.29,.069,.23]);box(pedal,M.metal,[0,.038,0],[.24,.014,.20]);
+ for(const z of [-.10,.10])box(pedal,M.billTop,[0,0,z],[.12,.039,.014]);
+ for(const x of [-.07,0,.07])box(pedal,M.ink,[x,.049,0],[.014,.013,.17]);
+ const spindle=mesh(G.cylinder,M.chrome,bike);
+ const foot=group(pedal,[-.11,.079,0]);mesh(webFootGeo,M.foot,foot);
+ ell(foot,M.foot,[-.02,.033,0],[.10,.069,.068]);
+ for(const z of [-.115,0,.112])tube(foot,M.toe,[[-.04,.028,0],[.095,.030,z*.6],[.27,.027,z]],.006,10);
+ const upper=mesh(G.cylinder,M.foot,rig),lower=mesh(G.cylinder,M.foot,rig),knee=ell(rig,M.foot,[0,0,0],[.066,.07,.065]);
+ const thigh=mesh(G.sphere,M.warmFeather,rig);const ankle=ell(rig,M.foot,[0,0,0],[.05,.06,.05]);
+ legs.push({side,crank,pedal,spindle,foot,upper,lower,knee,thigh,ankle});
+}
+// Chain links follow a closed path. A faint continuous core avoids flicker.
+const chainPoints=[];
+for(let i=0;i<=28;i++){let a=-PI/2+i/28*PI;chainPoints.push([C[0]+.255*Math.cos(a),C[1]+.255*Math.sin(a),.205]);}
+chainPoints.push([-1.15,.807,.205]);
+for(let i=1;i<=18;i++){let a=PI/2+i/18*PI;chainPoints.push([-1.15+.105*Math.cos(a),.702+.105*Math.sin(a),.205]);}
+chainPoints.push(chainPoints[0]);
+tube(bike,M.chain,chainPoints,.010,72);
+const chainLengths=[0];for(let i=1;i<chainPoints.length;i++)chainLengths.push(chainLengths.at(-1)+len(sub(chainPoints[i],chainPoints[i-1])));
+const chainTotal=chainLengths.at(-1);
+function chainAt(d){d=((d%chainTotal)+chainTotal)%chainTotal;let i=1;while(chainLengths[i]<d)i++;return lerp3(chainPoints[i-1],chainPoints[i],(d-chainLengths[i-1])/(chainLengths[i]-chainLengths[i-1]));}
+const chainLinks=Array.from({length:66},()=>mesh(G.cylinder,M.chrome,bike));
+// -------------------------------- Pelican --------------------------------
+const body=group(rig,[-.43,2.61,0]);
+const torso=ell(body,M.ivory,[0,0,0],[.65,.70,.46]);torso.r[2]=-.22;
+ell(body,M.white,[.32,.15,0],[.35,.50,.395]);
+ell(body,M.warmFeather,[-.30,-.20,0],[.43,.42,.40]);
+// A layered rump and distinct, tapered tail feathers.
+for(let i=0;i<7;i++){
+ const z=(i-3)*.09;feather(body,i%3?M.ivory:M.feather,[-.30,-.12,z*.5],[-1.10,-.16+Math.abs(i-3)*.035,z],.12,.053);
+}
+for(const side of [-1,1])for(let i=0;i<6;i++){
+ feather(body,i%2?M.feather:M.ivory,[-.39+i*.087,.22,side*.376],[-.59+i*.075,-.25,side*.427],.08,.025);
+}
+// S-curved neck and a large, characteristic head — not a duck-like short bill.
+const neck=group(body);
+tube(neck,M.ivory,[[.27,.27,0],[.49,.52,0],[.44,.77,0],[.48,1.02,0],[.70,1.17,0]],[.27,.23,.175,.175,.23],48);
+ell(neck,M.white,[.61,.98,0],[.22,.28,.225]);
+const head=group(body,[.84,1.20,0]);
+ell(head,M.ivory,[0,0,0],[.386,.32,.293]);
+ell(head,M.white,[.12,-.06,0],[.27,.23,.27]);
+// Broad, expandable throat pouch below a long, narrow upper bill.
+const bill=g
