@@ -1,0 +1,88 @@
+link(node,a,b,rx=.04,rz=rx){
+ const y=norm(sub(b,a)),x=norm(cross(Math.abs(y[2])>.96?[0,1,0]:[0,0,1],y)),z=cross(x,y),mid=mul(add(a,b),.5),length=len(sub(b,a))*(node.geo.kind==='sphere'?.5:1),m=node.local;
+ m[0]=x[0]*rx;m[1]=x[1]*rx;m[2]=x[2]*rx;m[3]=0;m[4]=y[0]*length;m[5]=y[1]*length;m[6]=y[2]*length;m[7]=0;m[8]=z[0]*rz;m[9]=z[1]*rz;m[10]=z[2]*rz;m[11]=0;m[12]=mid[0];m[13]=mid[1];m[14]=mid[2];m[15]=1;node.override=true;return node;
+}
+const rod=(parent,mat,a,b,r=.035)=>link(mesh(G.cylinder,mat,parent),a,b,r);
+const feather=(parent,mat,a,b,w=.1,depth=.05,low=false)=>link(mesh(low?G.smallSphere:G.sphere,mat,parent),a,b,w,depth);
+const ring=(parent,mat,p,R,r,arc=TAU)=>mesh(torusGeo(R,r,arc),mat,parent,p);
+function makeProgram(vs,fs){
+ const shaders=[];for(const [type,src] of [[gl.VERTEX_SHADER,vs],[gl.FRAGMENT_SHADER,fs]]){const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(sh));shaders.push(sh);}
+ const program=gl.createProgram();shaders.forEach(s=>gl.attachShader(program,s));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));shaders.forEach(s=>gl.deleteShader(s));return program;
+}
+const vertex=`#version 300 es
+precision highp float;
+layout(location=0) in vec3 aPosition;layout(location=1) in vec3 aNormal;
+layout(location=2) in mat4 iModel;layout(location=6) in vec4 iColor;layout(location=7) in vec4 iParams;
+uniform mat4 uViewProjection;uniform mat4 uLight;
+out vec3 vWorld;out vec3 vNormal;out vec4 vColor;out vec4 vParams;out vec4 vShadow;
+void main(){vec4 w=iModel*vec4(aPosition,1.0);vWorld=w.xyz;
+vec3 x=iModel[0].xyz,y=iModel[1].xyz,z=iModel[2].xyz;
+vNormal=normalize(cross(y,z)*aNormal.x+cross(z,x)*aNormal.y+cross(x,y)*aNormal.z);
+vColor=iColor;vParams=iParams;vShadow=uLight*vec4(w.xyz+vNormal*.007,1.0);gl_Position=uViewProjection*w;}`;
+const fragment=`#version 300 es
+precision highp float;
+in vec3 vWorld;in vec3 vNormal;in vec4 vColor;in vec4 vParams;in vec4 vShadow;
+uniform sampler2D uShadowMap;uniform vec3 uEye;uniform vec3 uSun;uniform vec2 uShadowTexel;out vec4 frag;
+vec3 aces(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.0,1.0);}
+void main(){vec3 n=normalize(vNormal);float ndl=max(dot(n,uSun),0.0);vec3 sc=vShadow.xyz/vShadow.w*.5+.5;
+float shade=1.0;
+if(vParams.y>.5&&sc.x>0.0&&sc.x<1.0&&sc.y>0.0&&sc.y<1.0&&sc.z<1.0){shade=0.0;float bias=max(.0006,.0018*(1.0-ndl));
+for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++){float d=texture(uShadowMap,sc.xy+vec2(float(x),float(y))*uShadowTexel*2.7).r;shade+=sc.z-bias>d?.27:1.0;}shade/=9.0;}
+vec3 hemi=mix(vec3(.42,.38,.28),vec3(.60,.72,.74),n.y*.5+.5);
+vec3 c=vColor.rgb*(hemi*.76+vec3(1.0,.91,.73)*ndl*1.35*shade);
+vec3 halfV=normalize(uSun+normalize(uEye-vWorld));float spec=pow(max(dot(n,halfV),0.0),48.0)*vColor.a*.40*shade;
+c+=vec3(1.0,.97,.85)*spec;c=mix(c,vColor.rgb*1.6,clamp(vParams.x,0.0,1.0));
+c=pow(aces(c),vec3(1.0/2.2));float fog=smoothstep(29.0,100.0,length(uEye-vWorld));c=mix(c,vec3(.87,.90,.81),fog);frag=vec4(c,1.0);}`;
+const shadowVert=`#version 300 es
+precision highp float;layout(location=0) in vec3 aPosition;layout(location=2) in mat4 iModel;layout(location=7) in vec4 iParams;uniform mat4 uLight;
+void main(){gl_Position=uLight*iModel*vec4(aPosition,1.0);if(iParams.z<.5)gl_Position=vec4(2.,2.,2.,1.);}`;
+const shadowFrag=`#version 300 es
+precision highp float;void main(){}`;
+const skyVert=`#version 300 es
+precision highp float;out vec2 vUV;void main(){vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2);vUV=p;gl_Position=vec4(p*2.-1.,.99999,1.);}`;
+const skyFrag=`#version 300 es
+precision highp float;in vec2 vUV;out vec4 frag;void main(){vec3 col=mix(vec3(.93,.93,.81),vec3(.71,.84,.83),smoothstep(.0,1.4,vUV.y));frag=vec4(col,1.);}`;
+const prog=makeProgram(vertex,fragment),shadowProg=makeProgram(shadowVert,shadowFrag),skyProg=makeProgram(skyVert,skyFrag);
+const U={};for(const n of ['uViewProjection','uLight','uShadowMap','uEye','uSun','uShadowTexel'])U[n]=gl.getUniformLocation(prog,n);
+const shadowLight=gl.getUniformLocation(shadowProg,'uLight');
+const shadowSize=innerWidth<700?1024:2048;
+const depthTexture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,depthTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.DEPTH_COMPONENT24,shadowSize,shadowSize,0,gl.DEPTH_COMPONENT,gl.UNSIGNED_INT,null);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+const shadowFbo=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,shadowFbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.TEXTURE_2D,depthTexture,0);gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);
+if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('无法创建阴影缓冲。');gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+const sunDirection=norm([-4,8,5]);const lightMatrix=mm(ortho(-10,10,-9,11,.1,42),lookAt(mul(sunDirection,20),[0,1,0]));
+// ----------------------------- Coastal world -----------------------------
+const ground=box(root,M.sand,[0,-.15,0],[250,.25,250]);ground.cast=false;
+const road=box(root,M.road,[0,-.033,0],[240,.09,4.5]);road.cast=false;
+const sea=box(root,M.sea,[0,-.038,-69],[240,.10,125]);sea.cast=false;
+for(const z of [-2.27,2.27]){let n=box(root,M.roadLine,[0,.016,z],[240,.025,.065]);n.cast=false;}
+const moving=[];
+function drift(node,x,length=70,factor=1){moving.push({node,start:x,length,factor});}
+// Repeating, flush road markings make wheel motion read as forward travel.
+for(let i=0;i<42;i++)for(const z of [-1.92,1.92]){const x=i*3.0-63,n=box(root,M.roadLine,[x,.021,z],[1.05,.008,.045]);n.cast=false;drift(n,x,126);}
+for(let i=0;i<55;i++){
+ const x=rand()*84-42,z=(rand()<.5?-1:1)*(2.55+rand()*4.6),g=group(root,[x,0,z]);drift(g,x,84);
+ for(let j=0;j<3;j++){const rr=.035+rand()*.065,stone=ell(g,j%2?M.rock:M.rockLight,[rand()*.24,rr*.28,rand()*.24],[rr*1.5,rr*.5,rr],true);stone.r[1]=rand()*PI;}
+}
+const grassTufts=[];
+for(let i=0;i<37;i++){
+ const x=rand()*90-45,z=(i%2?1:-1)*(2.85+rand()*2.5),g=group(root,[x,0,z]);drift(g,x,90);grassTufts.push(g);
+ for(let j=0;j<6;j++){const a=rand()*TAU,h=.16+rand()*.38,w=.018+rand()*.016;const blade=feather(g,[M.grass,M.grassDark,M.grassLight][j%3],[Math.cos(a)*.035,0,Math.sin(a)*.035],[Math.cos(a)*.16,h,Math.sin(a)*.16],w,.018,true);blade.cast=false;}
+ if(i%4===0){for(let j=0;j<3;j++){const x1=(rand()-.5)*.27,z1=(rand()-.5)*.22,h=.29+rand()*.17;rod(g,M.stem,[x1,0,z1],[x1+.05,h,z1],.009).cast=false;for(let k=0;k<5;k++){const a=k/5*TAU;ell(g,M.flowerWhite,[x1+.05+Math.cos(a)*.04,h+.008,z1+Math.sin(a)*.04],[.039,.013,.022],true).cast=false;}ell(g,M.flower,[x1+.05,h+.019,z1],[.023,.016,.023],true).cast=false;}}
+}
+for(let i=0;i<18;i++){
+ const x=i*6-54,g=group(root,[x,-.05,-5.4]);drift(g,x,108);ell(g,i%2?M.sand:M.dune,[0,0,0],[3.5,.22+rand()*.26,1.35]);
+}
+// Weathered low posts and rope on the sea side of the lane.
+for(let i=0;i<27;i++){
+ const x=i*4-54,g=group(root,[x,0,-3.25]);drift(g,x,108);
+ const post=box(g,M.wood,[0,.40,0],[.115,.80,.13]);post.r[2]=.02;ell(g,M.wood,[0,.81,0],[.079,.045,.081],true);
+ tube(g,M.rope,[[0,.60,0],[1,.47,0],[2,.43,0],[3,.47,0],[4,.60,0]],.018,16).cast=false;
+}
+const waveLines=[];
+for(let i=0;i<34;i++){
+ const x=rand()*130-65,z=-7.7-rand()*56,g=group(root,[x,.033,z]);drift(g,x,130,.18);
+ const w=ell(g,M.foam,[0,0,0],[1.1+rand()*2.7,.006,.018+rand()*.025],true);w.cast=false;waveLines.push(w);
+}
+function cloud(x,y,z,s){const g=group(root,[x,y,z]);g.s=[s,s,s];for(const [p,sc] of [[[0,0,0],[1.9,.40,.58]],[[-.70,.28,0],[.8,.61,.60]],[[.25,.38,0],[.9,.80,.66]],[[1,.13,0],[.80,.52,.60]]]){const m=ell(g,M.cloud,p,sc);m.cast=false;}return g;}
+const clouds=[cloud(-13,8.3,-27,1.6),cloud(7,9.5,-33,2),cloud(23,7.1,-24,1.4),cloud(-28,12,-47,2.5),cloud(-1,13.5,-57,2.3)
