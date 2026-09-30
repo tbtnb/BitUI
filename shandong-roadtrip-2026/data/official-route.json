@@ -4530,7 +4530,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd02",
@@ -4544,7 +4546,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd03",
@@ -4558,7 +4562,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd04",
@@ -4572,7 +4578,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd05",
@@ -4586,7 +4594,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd06",
@@ -4600,7 +4610,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd07",
@@ -4614,7 +4626,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd08",
@@ -4628,7 +4642,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd09",
@@ -4642,7 +4658,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明"
+      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd10",
@@ -4656,7 +4674,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd11",
@@ -4670,7 +4690,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd12",
@@ -4684,7 +4706,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd13",
@@ -4698,7 +4722,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明"
+      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd14",
@@ -4712,7 +4738,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明"
+      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd15",
@@ -4726,7 +4754,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明"
+      "sponsorship_status": "存在明显店铺推荐、营销措辞或推广标签；未见明确商单披露，商业独立性不明",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd16",
@@ -4740,7 +4770,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd17",
@@ -4754,7 +4786,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd18",
@@ -4768,7 +4802,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd19",
@@ -4782,7 +4818,9 @@
       "public_url_verified": false,
       "url_caution": "从实际打开链接移除xsec参数后的识别地址，未经独立验证；建议按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "qd20",
@@ -4796,7 +4834,9 @@
       "public_url_verified": false,
       "url_caution": "已测试无xsec参数地址，2026-10-01返回当前笔记暂时无法浏览；请按标题和作者站内搜索",
       "independence": "不同note_id，不等于已证明内容独立；营销模板/转载/同次旅行需另归并",
-      "sponsorship_status": "未见明确商单披露；不代表排除推广"
+      "sponsorship_status": "未见明确商单披露；不代表排除推广",
+      "official_share_reopen_verified": false,
+      "anonymous_access_verified": false
     },
     {
       "id": "wh_fangzhi_closed_oct5",
@@ -6635,32 +6675,44 @@
         {
           "title": "盐河巷停车攻略！外地自驾游客必看",
           "author": "长得像鲁迅",
-          "url": "https://www.xiaohongshu.com/explore/69f6bb1e000000003700ca0f"
+          "url": "https://www.xiaohongshu.com/explore/69f6bb1e000000003700ca0f",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "连云港｜免费民国老街✨民主路逛拍全攻略",
           "author": "南通户外徒步领队：镜禾📸",
-          "url": "https://www.xiaohongshu.com/explore/6a82ba04000000002402cebe"
+          "url": "https://www.xiaohongshu.com/explore/6a82ba04000000002402cebe",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "出游连云港真心话",
           "author": "茉莉",
-          "url": "https://www.xiaohongshu.com/explore/6a40f4d2000000002200b4c8"
+          "url": "https://www.xiaohongshu.com/explore/6a40f4d2000000002200b4c8",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "国庆自驾连云港，说点干货给下一个来的",
           "author": "滨湖办公租赁",
-          "url": "https://www.xiaohongshu.com/explore/68e2727d000000000301c3d5"
+          "url": "https://www.xiaohongshu.com/explore/68e2727d000000000301c3d5",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "连云港盐河巷电车充电红辣椒停车攻略",
           "author": "Tina",
-          "url": "https://www.xiaohongshu.com/explore/6a953657000000002003ca02"
+          "url": "https://www.xiaohongshu.com/explore/6a953657000000002003ca02",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "连云港自驾避坑｜清明亲测真实体验",
           "author": "户外山海经",
-          "url": "https://www.xiaohongshu.com/explore/69df612000000000230171e8"
+          "url": "https://www.xiaohongshu.com/explore/69df612000000000230171e8",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         }
       ]
     },
@@ -6675,32 +6727,44 @@
         {
           "title": "日照|研究生情侣高性价比酒店 测评版2️⃣",
           "author": "一只记号笔💕",
-          "url": "https://www.xiaohongshu.com/explore/6937c7ed000000001f0079a5"
+          "url": "https://www.xiaohongshu.com/explore/6937c7ed000000001f0079a5",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "日照全季（万象汇政府）店服务好",
           "author": "既伟大又渺小",
-          "url": "https://www.xiaohongshu.com/explore/6a065486000000000802757a"
+          "url": "https://www.xiaohongshu.com/explore/6a065486000000000802757a",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "日照！银座茂夜市到底好不好逛？！",
           "author": "大神儿er",
-          "url": "https://www.xiaohongshu.com/explore/6a56ede300000000210221af"
+          "url": "https://www.xiaohongshu.com/explore/6a56ede300000000210221af",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "五一 上海自驾日照 3人1狗 流水账",
           "author": "诶嘿嘿",
-          "url": "https://www.xiaohongshu.com/explore/6a1d9b280000000007027c67"
+          "url": "https://www.xiaohongshu.com/explore/6a1d9b280000000007027c67",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "日照个人经验避雷贴",
           "author": "苟住就能赢",
-          "url": "https://www.xiaohongshu.com/explore/6a4f527100000000110047f3"
+          "url": "https://www.xiaohongshu.com/explore/6a4f527100000000110047f3",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         },
         {
           "title": "勇闯日照东夷小镇",
           "author": "姜小月半",
-          "url": "https://www.xiaohongshu.com/explore/6a8bb07b000000003400f92d"
+          "url": "https://www.xiaohongshu.com/explore/6a8bb07b000000003400f92d",
+          "official_share_reopen_verified": false,
+          "anonymous_access_verified": false
         }
       ]
     }
