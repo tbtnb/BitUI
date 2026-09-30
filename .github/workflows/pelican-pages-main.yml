@@ -38,3 +38,5 @@ jobs:
         uses: actions/deploy-pages@v4
 
 # Publish isolated Shandong research preview: 8a367320628c893429e9e1b3ca94a8bb9464e58d
+
+# Publish isolated Shandong map-first preview: 5baaefe6a88d3f61ad337dd0f26b75dca5c59bd0
