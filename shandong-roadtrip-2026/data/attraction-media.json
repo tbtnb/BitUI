@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T19:57:00Z",
+  "updated_at": "2026-09-30T21:11:35.245084+00:00",
   "status": "media_research_in_progress",
   "note": "每张实景图保留摄影作者与许可。图片齐备不等于景点专帖或手机链接已经核验。",
   "attractions": [
@@ -14,6 +14,7 @@
       "day_ids": [
         "d1"
       ],
+      "preferred_note_id": "6a4f6bf5000000001503ccf8",
       "images": [],
       "xhs_notes": [
         {
@@ -66,8 +67,36 @@
       "day_ids": [
         "d1"
       ],
+      "preferred_note_id": "6a508849000000001503d45d",
       "images": [],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "69f6bb1e000000003700ca0f",
+          "title": "盐河巷停车攻略！外地自驾游客必看",
+          "author": "长得像鲁迅",
+          "url": "https://www.xiaohongshu.com/explore/69f6bb1e000000003700ca0f",
+          "topic_scope": "parking_only",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": false,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "05-02",
+          "copy_fallback": "盐河巷停车攻略！外地自驾游客必看 长得像鲁迅"
+        },
+        {
+          "note_id": "6a508849000000001503d45d",
+          "title": "连云港盐河巷夜市",
+          "author": "行走的摄影师",
+          "url": "https://www.xiaohongshu.com/explore/6a508849000000001503d45d",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "07-09",
+          "copy_fallback": "连云港盐河巷夜市 行走的摄影师"
+        }
+      ]
     },
     {
       "id": "qd_zhanqiao",
@@ -81,6 +110,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": "6a7c4b6500000000250018a7",
       "images": [
         {
           "url": "assets/places/qd_zhanqiao_landmark.jpg",
@@ -105,7 +135,23 @@
           "attribution": "Windmemories / Wikimedia Commons / CC BY-SA 4.0"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6a7c4b6500000000250018a7",
+          "title": "青岛栈桥游览➕拍照攻略✅",
+          "author": "云帆见山海",
+          "url": "https://www.xiaohongshu.com/discovery/item/6a7c4b6500000000250018a7?source=webshare&xhsshare=pc_web&xsec_token=ABFBQSWwhX8e3LAomhOrXOACGMCRYOo0plqG3YBegVHAI=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_guide",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于 08-13",
+          "copy_fallback": "青岛栈桥游览➕拍照攻略✅ 云帆见山海"
+        }
+      ]
     },
     {
       "id": "qd_zhongshan_road",
@@ -116,6 +162,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_zhongshan_road.jpg",
@@ -154,6 +201,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_st_michaels.jpg",
@@ -189,6 +237,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_badaguan.jpg",
@@ -226,6 +275,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_second_beach_wide.jpg",
@@ -264,6 +314,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": "6aac9cee0000000025036238",
       "images": [
         {
           "url": "assets/places/qd_mayfour_square.jpg",
@@ -315,6 +366,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_olympic_sailing.jpg",
@@ -352,6 +404,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_fushan_bay.jpg",
@@ -387,6 +440,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_signal_hill.jpg",
@@ -422,6 +476,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_xiaoyu_hill.jpg",
@@ -457,6 +512,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_laoshan.jpg",
@@ -494,6 +550,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/qd_underwater.jpg",
@@ -529,8 +586,65 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6aac711f000000002502fb9d",
       "images": [],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6aac711f000000002502fb9d",
+          "title": "威海 Day4｜半月湾日出｜日出攻略🌅",
+          "author": "春山山",
+          "url": "https://www.xiaohongshu.com/discovery/item/6aac711f000000002502fb9d?source=webshare&xhsshare=pc_web&xsec_token=ABLlFN47gqckiuyXjDpbOZk_axQtswElgfpo3IHLB5Rnc=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "09-18 山东",
+          "copy_fallback": "威海 Day4｜半月湾日出｜日出攻略🌅 春山山",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        }
+      ],
+      "embeds": [
+        {
+          "provider": "Getty Images",
+          "asset_id": "2271058841",
+          "widget": {
+            "id": "cgcbwb0iTNNM-cX9qJekrQ",
+            "sig": "kCA2N2jvaSZT-3kJ9s0KaYa21j2k177NTJt9u7ajYcc=",
+            "width": 479,
+            "height": 359
+          },
+          "author": "shuige",
+          "source_url": "https://www.gettyimages.co.nz/detail/photo/the-ban-yue-bay-scenic-area-royalty-free-image/2271058841",
+          "terms_url": "https://www.gettyimages.co.nz/company/terms",
+          "license": "Getty Images noncommercial embed only",
+          "alt": "作者标注半月湾景区的岩石海岸",
+          "title": "The Ban Yue Bay Scenic Area",
+          "capture_date": "05 April, 2026",
+          "website_load_verified": false,
+          "mobile_load_verified": false
+        },
+        {
+          "provider": "Getty Images",
+          "asset_id": "2270668888",
+          "widget": {
+            "id": "L1P6opJzTS5gQIgKZmTp7g",
+            "sig": "r78CM3BjRxhiaEqwO4G1leu_60qIlyfLnaULcN9FBKU=",
+            "width": 479,
+            "height": 359
+          },
+          "author": "shuige",
+          "source_url": "https://www.gettyimages.co.nz/detail/photo/the-ban-yue-bay-scenic-area-royalty-free-image/2270668888",
+          "terms_url": "https://www.gettyimages.co.nz/company/terms",
+          "license": "Getty Images noncommercial embed only",
+          "alt": "作者标注半月湾景区的沙滩与浪花近景",
+          "title": "The Ban Yue Bay Scenic Area",
+          "capture_date": "05 April, 2026",
+          "website_load_verified": false,
+          "mobile_load_verified": false
+        }
+      ]
     },
     {
       "id": "wh_maotou_hill",
@@ -541,6 +655,7 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6a7d5ccb0000000006004101",
       "images": [],
       "xhs_notes": [
         {
@@ -573,14 +688,16 @@
           "note_id": "6a7d5ccb0000000006004101",
           "title": "威海猫头山不废腿半日游",
           "author": "黄油水煎包",
-          "url": "https://www.xiaohongshu.com/explore/6a7d5ccb0000000006004101",
+          "url": "https://www.xiaohongshu.com/discovery/item/6a7d5ccb0000000006004101?source=webshare&xhsshare=pc_web&xsec_token=ABskpgWjm_FwNadqKjN1lVh0fE_2SIZLgrwAasXCdpIuc=&xsec_source=pc_share",
           "topic_scope": "single_attraction_experience",
           "dedicated_topic_verified": true,
           "dedicated_scenery_post": true,
           "public_url_verified": false,
           "mobile_link_verified": false,
           "date_visible": "08-13",
-          "copy_fallback": "威海猫头山不废腿半日游 黄油水煎包"
+          "copy_fallback": "威海猫头山不废腿半日游 黄油水煎包",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
         },
         {
           "note_id": "6a6ec7360000000005028304",
@@ -621,6 +738,7 @@
       "day_ids": [
         "d3"
       ],
+      "preferred_note_id": "699be005000000001d026622",
       "images": [
         {
           "url": "assets/places/wh_happiness_gate.jpg",
@@ -645,7 +763,23 @@
           "attribution": "Popolon / Wikimedia Commons / CC BY-SA 3.0"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "699be005000000001d026622",
+          "title": "威海打卡幸福门最佳机位",
+          "author": "笋笋Daaachshund",
+          "url": "https://www.xiaohongshu.com/discovery/item/699be005000000001d026622?source=webshare&xhsshare=pc_web&xsec_token=AB4HyR6bfdPG_ehmEpweRREcje8eukKe14UMX96Zbkf-o=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "02-22",
+          "copy_fallback": "威海打卡幸福门最佳机位 笋笋Daaachshund",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        }
+      ]
     },
     {
       "id": "wh_weihai_park",
@@ -656,6 +790,7 @@
       "day_ids": [
         "d3"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -670,6 +805,7 @@
       "day_ids": [
         "d3"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -684,8 +820,25 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6aa15022000000001203ca01",
       "images": [],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6aa15022000000001203ca01",
+          "title": "9.9号国际海水浴场日落",
+          "author": "不想早起",
+          "url": "https://www.xiaohongshu.com/discovery/item/6aa15022000000001203ca01?source=webshare&xhsshare=pc_web&xsec_token=ABEcHY3_m4jxmYtiuCP-h6B38Rk96CDkSDwCDXnBgwbhk=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_photo_post",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "09-09 山东",
+          "copy_fallback": "9.9号国际海水浴场日落 不想早起",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        }
+      ]
     },
     {
       "id": "wh_torch_eighth",
@@ -696,6 +849,7 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6a83054b0000000028030f27",
       "images": [],
       "xhs_notes": [
         {
@@ -723,6 +877,21 @@
           "mobile_link_verified": false,
           "date_visible": "正文页面08-03；搜索列表08-04",
           "copy_fallback": "火炬八街停车别来官方停车场！！！ mono"
+        },
+        {
+          "note_id": "6a83054b0000000028030f27",
+          "title": "威海火炬八街",
+          "author": "妞妞妈",
+          "url": "https://www.xiaohongshu.com/discovery/item/6a83054b0000000028030f27?source=webshare&xhsshare=pc_web&xsec_token=AB_JxI1z932yS-5qtVC5SpOXQAZvy5sA5Q72wZXDSnziY=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "08-17",
+          "copy_fallback": "威海火炬八街 妞妞妈",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
         }
       ]
     },
@@ -735,6 +904,7 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6aba46c7000000001b0218dc",
       "images": [
         {
           "url": "assets/places/wh_liugong_island.jpg",
@@ -759,7 +929,49 @@
           "attribution": "Popolon / Wikimedia Commons / CC BY-SA 3.0"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6aba46c7000000001b0218dc",
+          "title": "D4 威海刘公岛",
+          "author": "若若梨",
+          "url": "https://www.xiaohongshu.com/discovery/item/6aba46c7000000001b0218dc?source=webshare&xhsshare=pc_web&xsec_token=ABscAhdDiq5HCCR2vT8gWptRi88g-tkx9w-1PWDMnG46Q=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于2天前 山东",
+          "copy_fallback": "D4 威海刘公岛 若若梨",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        },
+        {
+          "note_id": "68e137bb0000000004020421",
+          "title": "刘公岛10月4日等船排队2h多",
+          "author": "额",
+          "url": "https://www.xiaohongshu.com/explore/68e137bb0000000004020421",
+          "topic_scope": "queue_and_transport_only",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": false,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "2025-10-04",
+          "copy_fallback": "刘公岛10月4日等船排队2h多 额"
+        },
+        {
+          "note_id": "6a72ca1a000000002500313e",
+          "title": "刘公岛3小时速游攻略",
+          "author": "花椒爱和平",
+          "url": "https://www.xiaohongshu.com/explore/6a72ca1a000000002500313e",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "正文08-04，搜索列表08-05",
+          "copy_fallback": "刘公岛3小时速游攻略 花椒爱和平"
+        }
+      ]
     },
     {
       "id": "wh_naxianghai",
@@ -770,6 +982,7 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6a40ff97000000000e021800",
       "images": [
         {
           "url": "assets/places/wh_naxianghai.jpg",
@@ -794,7 +1007,23 @@
           "attribution": "Sunyiming / Wikimedia Commons / CC BY-SA 4.0"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6a40ff97000000000e021800",
+          "title": "不吹不黑 那香海避雷及推荐",
+          "author": "韩江雪",
+          "url": "https://www.xiaohongshu.com/discovery/item/6a40ff97000000000e021800?source=webshare&xhsshare=pc_web&xsec_token=ABd0DD38DHYl_3I9mo7FWMdP7Cn7RZ3JHuYE_l8nRSKUg=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于06-29",
+          "copy_fallback": "不吹不黑 那香海避雷及推荐 韩江雪",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        }
+      ]
     },
     {
       "id": "wh_bluewis",
@@ -807,6 +1036,7 @@
       "day_ids": [
         "d4"
       ],
+      "preferred_note_id": "6abd2f820000000015002217",
       "images": [
         {
           "url": "assets/places/wh_bluewis.jpg",
@@ -831,7 +1061,36 @@
           "attribution": "Photo by lee starry / Pexels"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6a6e2503000000002203170e",
+          "title": "威海布鲁威斯号 | 游玩一个半小时",
+          "author": "圈圈",
+          "url": "https://www.xiaohongshu.com/explore/6a6e2503000000002203170e",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于08-01",
+          "copy_fallback": "威海布鲁威斯号 | 游玩一个半小时 圈圈"
+        },
+        {
+          "note_id": "6abd2f820000000015002217",
+          "title": "威海 | 布鲁威斯落地签已拍不欠~附攻略🌊",
+          "author": "哒哒有颗桃子🍑（小月龄）",
+          "url": "https://www.xiaohongshu.com/discovery/item/6abd2f820000000015002217?source=webshare&xhsshare=pc_web&xsec_token=ABgBHnvaVWd5B8_QfJvagMkxGdRMukRCvCrCMEy6tpEok=&xsec_source=pc_share",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "4小时前；作者评论说明照片是前段时间拍的",
+          "copy_fallback": "威海 | 布鲁威斯落地签已拍不欠~附攻略🌊 哒哒有颗桃子🍑（小月龄）",
+          "official_share_reopen_verified": true,
+          "anonymous_access_verified": false
+        }
+      ]
     },
     {
       "id": "wh_hanlefang",
@@ -843,8 +1102,44 @@
         "d3",
         "d4"
       ],
+      "preferred_note_id": "6a942512000000002501adb1",
       "images": [],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6a942512000000002501adb1",
+          "title": "威海狂吃篇（韩乐坊版）",
+          "author": "林澈",
+          "url": "https://www.xiaohongshu.com/explore/6a942512000000002501adb1",
+          "topic_scope": "single_attraction_food_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": false,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "08-30",
+          "copy_fallback": "威海狂吃篇（韩乐坊版） 林澈"
+        }
+      ],
+      "embeds": [
+        {
+          "provider": "Getty Images",
+          "asset_id": "1545593384",
+          "widget": {
+            "id": "W_quPy__T1FBdcTD5b_3xw",
+            "sig": "yJqzrYJ4XvVONNlWrLCio34XnnRJHmak1Usfk4unXCc=",
+            "width": 510,
+            "height": 339
+          },
+          "author": "li dekun",
+          "source_url": "https://www.gettyimages.co.nz/detail/photo/the-hanlefang-night-market-in-weihai-city-shandong-royalty-free-image/1545593384",
+          "terms_url": "https://www.gettyimages.co.nz/company/terms",
+          "license": "Getty Images noncommercial embed only",
+          "alt": "韩乐坊夜市人流与摊位实景",
+          "title": "The Hanlefang Night Market in Weihai City, Shandong Province is packed with people",
+          "capture_date": "18 June, 2023",
+          "website_load_verified": false,
+          "mobile_load_verified": false
+        }
+      ]
     },
     {
       "id": "wh_oulefang",
@@ -856,6 +1151,7 @@
         "d3",
         "d4"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -869,6 +1165,7 @@
         "d3",
         "d4"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -881,6 +1178,7 @@
       "day_ids": [
         "d5"
       ],
+      "preferred_note_id": "6aa8fbb8000000000b00c0a4",
       "images": [
         {
           "url": "assets/places/rz_wanpingkou.jpg",
@@ -905,7 +1203,34 @@
           "attribution": "Leiem / Wikimedia Commons / CC BY-SA 4.0"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6aa8fbb8000000000b00c0a4",
+          "title": "🏝日照万平口游玩攻略🔶🆙",
+          "author": "Emma",
+          "url": "https://www.xiaohongshu.com/explore/6aa8fbb8000000000b00c0a4",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于09-15 江苏",
+          "copy_fallback": "🏝日照万平口游玩攻略🔶🆙 Emma"
+        },
+        {
+          "note_id": "69f09d95000000001f004043",
+          "title": "日照📍避雷这个停车场🅿️",
+          "author": "未完^待续",
+          "url": "https://www.xiaohongshu.com/explore/69f09d95000000001f004043",
+          "topic_scope": "parking_only",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": false,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "04-28",
+          "copy_fallback": "日照📍避雷这个停车场🅿️ 未完^待续"
+        }
+      ]
     },
     {
       "id": "rz_dongyi_town",
@@ -916,8 +1241,36 @@
       "day_ids": [
         "d5"
       ],
+      "preferred_note_id": "6a8bb07b000000003400f92d",
       "images": [],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "6a8bb07b000000003400f92d",
+          "title": "勇闯日照东夷小镇",
+          "author": "姜小月半",
+          "url": "https://www.xiaohongshu.com/explore/6a8bb07b000000003400f92d",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于08-23",
+          "copy_fallback": "勇闯日照东夷小镇 姜小月半"
+        },
+        {
+          "note_id": "6ababf72000000001802e1c7",
+          "title": "东夷小镇，没逛对？",
+          "author": "cookiclin在路上🐙",
+          "url": "https://www.xiaohongshu.com/explore/6ababf72000000001802e1c7",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "2天前 山东",
+          "copy_fallback": "东夷小镇，没逛对？ cookiclin在路上🐙"
+        }
+      ]
     },
     {
       "id": "rz_lighthouse",
@@ -926,6 +1279,7 @@
       "aliases": [],
       "route_role": "visual_landmark_only",
       "day_ids": [],
+      "preferred_note_id": "68a5d1a3000000001b022c3a",
       "images": [
         {
           "url": "assets/places/rz_lighthouse_unsplash.jpg",
@@ -950,7 +1304,34 @@
           "attribution": "Photo by Laputa Z / Unsplash"
         }
       ],
-      "xhs_notes": []
+      "xhs_notes": [
+        {
+          "note_id": "68a5d1a3000000001b022c3a",
+          "title": "日照看日出攻略灯塔广场万平口我有话要说！",
+          "author": "行走的绣花鞋",
+          "url": "https://www.xiaohongshu.com/explore/68a5d1a3000000001b022c3a",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "编辑于2025-09-07",
+          "copy_fallback": "日照看日出攻略灯塔广场万平口我有话要说！ 行走的绣花鞋"
+        },
+        {
+          "note_id": "69aed4680000000026031788",
+          "title": "日照 | 灯塔广场 | 老人与海",
+          "author": "听风继续吹",
+          "url": "https://www.xiaohongshu.com/explore/69aed4680000000026031788",
+          "topic_scope": "single_attraction_experience",
+          "dedicated_topic_verified": true,
+          "dedicated_scenery_post": true,
+          "public_url_verified": false,
+          "mobile_link_verified": false,
+          "date_visible": "03-09",
+          "copy_fallback": "日照 | 灯塔广场 | 老人与海 听风继续吹"
+        }
+      ]
     },
     {
       "id": "wh_zhongjiang_pagoda",
@@ -959,6 +1340,7 @@
       "aliases": [],
       "route_role": "visual_landmark_only",
       "day_ids": [],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/wh_zhongjiang_pagoda.jpg",
@@ -994,6 +1376,7 @@
       ],
       "route_role": "stopover_comparison_only",
       "day_ids": [],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -1004,6 +1387,7 @@
       "aliases": [],
       "route_role": "stopover_comparison_only",
       "day_ids": [],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -1014,6 +1398,7 @@
       "aliases": [],
       "route_role": "stopover_comparison_only",
       "day_ids": [],
+      "preferred_note_id": null,
       "images": [
         {
           "url": "assets/places/ha_hexia_town.jpg",
@@ -1049,6 +1434,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     },
@@ -1061,6 +1447,7 @@
       "day_ids": [
         "d2"
       ],
+      "preferred_note_id": null,
       "images": [],
       "xhs_notes": []
     }
